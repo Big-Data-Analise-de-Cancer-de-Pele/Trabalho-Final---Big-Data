@@ -1,0 +1,9 @@
+1 - Escolha do dataset, tecnologias e ferramentas utilizadas, intuito do trabalho( Vargas )
+
+2 - Workflow do Docker e conexões ( Sávio )
+
+3 - Normalização e tratamento dos dados ( Eduardo )
+
+4 - Interpretação dos resultados e explicação do streamlit ( Miguel)
+
+5 - Explicando o modelo ( João )
