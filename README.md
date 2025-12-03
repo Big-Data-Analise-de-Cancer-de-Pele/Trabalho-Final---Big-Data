@@ -1,3 +1,19 @@
+
+
+#baixar zip do github
+
+* baixar essa pasta streamlit e substituir ela pela já existente no ambiente do professor
+
+* 
+cd /opt/ceub-bigdata/streamlit
+docker container prune
+
+baixar csvs no drive 
+https://drive.google.com/drive/folders/1nNo-Jf3Qw0RrtpfJAD9TKpeboQSoUhJx
+
+
+
+------------------------------------
 FAZER O CODIGO E A MAQUINA RODAR
 
 nós utilizamos o docker do professor do ceub-bigdata so que para que ela rode do jeito certo é necessario alguns passos
