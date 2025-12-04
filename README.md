@@ -1,64 +1,134 @@
 
+# 📘 Tutorial – Ambiente Streamlit + MinIO + Dataset HAM10000
 
-#baixar zip do github
+Este guia apresenta o passo a passo para configurar o ambiente em Docker com Streamlit e MinIO, fazer upload do dataset HAM10000 e rodar a aplicação no navegador.
 
-* baixar essa pasta streamlit e substituir ela pela já existente no ambiente do professor
+---
 
-* 
-cd /opt/ceub-bigdata/streamlit
+## 🚀 1. Limpar contêineres antigos
+
+Antes de tudo, remova contêineres antigos — principalmente os MinIO criados pelo professor:
+
+```bash
 docker container prune
+```
 
-baixar csvs no drive 
-https://drive.google.com/drive/folders/1nNo-Jf3Qw0RrtpfJAD9TKpeboQSoUhJx
+---
 
+## 📂 2. Entrar na pasta do projeto Streamlit
 
-
-------------------------------------
-FAZER O CODIGO E A MAQUINA RODAR
-
-nós utilizamos o docker do professor do ceub-bigdata so que para que ela rode do jeito certo é necessario alguns passos
-
-1. Substituir a pasta de Streamlit pela pasta de streamlit no drive
-https://drive.google.com/drive/folders/1nNo-Jf3Qw0RrtpfJAD9TKpeboQSoUhJx
-
-* baixar essa pasta e substituir ela pela já existente no ambiente do professor
-
-2. conferir se o caminho das portas obedece o seguinte
-
-minio 9001 9001
-streamlit 8501 8501
-se não o código não irá funcionar
-
-3. realizar os comandos caso necessario
-
-#é necessario entrar na pasta do streamlit primeiro para realizar os proximos comandos
+```bash
 cd /opt/ceub-bigdata/streamlit
+```
 
-#depois disso tudo realizar o build e o up com esse comando que age como um reset
-docker-compose down; docker-compose build; docker-compose up -d ; docker logs -f streamlit-app 
+---
 
-OCASIONAL----------------------------------------
-#quando dar erro de docker minio sendo usado: 
-docker container prune
+## 🏗️ 3. Subir o ambiente com Docker Compose
 
-#depois disso rodar o comando de reset de novo
-docker-compose down; docker-compose build; docker-compose up -d ; docker logs -f streamlit-app
-OCASIONAL----------------------------------------
+```bash
+docker-compose up -d
+```
 
-database pra ser usada
-https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000
-#dicionario de dados desse: 
-https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T
+---
 
-4. adicionar arquivos no minio
-local host do minio:
-http://localhost:9001/
+## 🔌 4. Ajustar portas (caso necessário)
 
-depois de deixar o minio na web funcional, adicionar neles os arquivos
+Se houver algo usando a porta **8501** (geralmente Flask), derrube o serviço:
 
-* crie um bucket chamado "datasets" no minio
-* adicione os datasets no drive que ficam na pasta chamada "dados HAM10000 csvcsv"
+```bash
+sudo lsof -i :8501
+kill -9 <PID>
+```
 
-5. rodar o streamlit
-agora é só abrir na web o local host do streamlit:
+Garanta que o Docker está expondo a porta:
+
+```
+8501 -> 8501
+```
+
+---
+
+## 🌐 5. Acessar o MinIO
+
+Abra no navegador:
+
+```
+http://localhost:9001
+```
+
+### 🔑 Login do MinIO
+
+* **Usuário:** admin
+* **Senha:** password
+
+---
+
+## 📁 6. Criar bucket e enviar o dataset HAM10000
+
+### 6.1. Baixar dataset HAM10000 (CSV)
+
+🔗 Google Drive:
+[https://drive.google.com/drive/folders/1xGpaP8dTsiaH_kZ5RxjmhL_AYWPwNfsZ?usp=sharing](https://drive.google.com/drive/folders/1xGpaP8dTsiaH_kZ5RxjmhL_AYWPwNfsZ?usp=sharing)
+
+### 6.2. (Opcional) Dataset completo original
+
+🔗 Kaggle:
+[https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000](https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000)
+
+### 6.3. Criar bucket `datasets` (se não existir)
+
+Acesse:
+
+```
+http://localhost:9001/browser
+```
+
+E crie o bucket:
+
+```
+datasets
+```
+
+### 6.4. Fazer upload dos arquivos CSV no MinIO
+
+Acesse:
+
+```
+http://localhost:9001/browser/datasets
+```
+
+Faça upload dos arquivos do dataset.
+
+---
+
+## 🟩 7. Abrir o Streamlit
+
+Depois de enviar os arquivos ao MinIO, abra:
+
+```
 http://localhost:8501/
+```
+
+A aplicação deverá carregar normalmente.
+
+---
+
+# 🛠️ DEBUG – Caso algo dê errado
+
+Utilize:
+
+```bash
+docker-compose down
+docker-compose build
+docker-compose up -d
+docker logs -f streamlit-app
+```
+
+---
+
+## 📚 Dicionário de Dados (HAM10000)
+
+Para entender as colunas do dataset:
+
+🔗 [https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T)
+
