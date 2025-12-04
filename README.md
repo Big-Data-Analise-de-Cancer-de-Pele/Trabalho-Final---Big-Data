@@ -7,7 +7,7 @@ Este guia apresenta o passo a passo para configurar o ambiente em Docker com Str
 
 ## 🚀 1. Limpar contêineres antigos
 
-Antes de tudo, remova contêineres antigos — principalmente os MinIO criados pelo professor:
+Antes de tudo, esteja certo que está como root. E remova contêineres antigos — principalmente os MinIO criados pelo professor:
 
 ```bash
 docker container prune
@@ -17,6 +17,7 @@ docker container prune
 
 ## 📂 2. Entrar na pasta do projeto Streamlit
 
+Baixe o zip do nosso repositorio completo, e arraste a pasta streamlit, substituindo a do professor no bigdata. Se a sua for uma máquina virgem. crie o diretorio ceub-bigdata no /opt, após virar root. e 
 ```bash
 cd /opt/ceub-bigdata/streamlit
 ```
@@ -31,19 +32,15 @@ docker-compose up -d
 
 ---
 
-## 🔌 4. Ajustar portas (caso necessário)
+## 🔌 4. Ajustar portas na VirtualMachine (caso necessário)
 
 Se houver algo usando a porta **8501** (geralmente Flask), derrube o serviço:
 
-```bash
-sudo lsof -i :8501
-kill -9 <PID>
-```
 
 Garanta que o Docker está expondo a porta:
 
 ```
-8501 -> 8501
+Streamlit 8501 -> 8501
 ```
 
 ---
@@ -70,10 +67,7 @@ http://localhost:9001
 🔗 Google Drive:
 [https://drive.google.com/drive/folders/1xGpaP8dTsiaH_kZ5RxjmhL_AYWPwNfsZ?usp=sharing](https://drive.google.com/drive/folders/1xGpaP8dTsiaH_kZ5RxjmhL_AYWPwNfsZ?usp=sharing)
 
-### 6.2. (Opcional) Dataset completo original
 
-🔗 Kaggle:
-[https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000](https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000)
 
 ### 6.3. Criar bucket `datasets` (se não existir)
 
@@ -113,7 +107,7 @@ A aplicação deverá carregar normalmente.
 
 ---
 
-# 🛠️ DEBUG – Caso algo dê errado
+# 🛠️ DEBUG para Devs – Caso algo dê errado
 
 Utilize:
 
