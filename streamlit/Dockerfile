@@ -6,17 +6,9 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-
 # Copia app e scripts
 COPY app.py .
 
-COPY entrypoint.sh .
-
-# Dá permissão de execução
-RUN chmod +x entrypoint.sh
-
 EXPOSE 8501
 
-ENTRYPOINT ["./entrypoint.sh"]
-
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
